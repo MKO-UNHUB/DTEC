@@ -101,7 +101,7 @@ local autoFameEnabled = false
 local connection
 
 Tabs.ToggleTab:Toggle({
-    Title = "Auto Fame",
+    Title = "Auto Farm",
     Default = true,
     Callback = function(state)
         autoFameEnabled = state
@@ -179,12 +179,47 @@ Tabs.ToggleTab:Toggle({
 
 
 
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local autoWinEnabled = true
+
 Tabs.ToggleTab:Toggle({
-    Title = "Toggle with icon",
-    Icon = "check",
-    Default = false,
-    Callback = function(state) print("Toggle with icon activated: " .. tostring(state)) end
+    Title = "Auto win",
+    Default = true,
+    Callback = function(state)
+        autoWinEnabled = state
+
+        if autoWinEnabled then
+            task.spawn(function()
+                while autoWinEnabled do
+                    local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    if not hrp then
+                        task.wait(1)
+                        continue
+                    end
+
+                    for i = 1, 7 do
+                        local world = workspace:FindFirstChild("World" .. i)
+                        local spawns = world and world:FindFirstChild("Spawns")
+                        local mapBottom = world and world:FindFirstChild("Map") and world.Map:FindFirstChild("Bottom")
+
+                        if world and spawns and mapBottom then
+                            local thirdSpawn = spawns:GetChildren()[3]
+                            if thirdSpawn and (hrp.Position - thirdSpawn.Position).Magnitude <= 100 then
+                                hrp.CFrame = mapBottom.CFrame + Vector3.new(0, 5, 0)
+                                break
+                            end
+                        end
+                    end
+
+                    task.wait(1.5)
+                end
+            end)
+        end
+    end
 })
+
 
 
 Tabs.SliderTab:Slider({
