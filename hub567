@@ -59,7 +59,7 @@ local Window = WindUI:CreateWindow({
     Theme = "Dark",
     UserEnabled = false,
     SideBarWidth = 200,
-    --Background = "rbxassetid://13511292247", -- rbxassetid only
+    --Background = "rbxassetid://94982768616052", -- rbxassetid only
     HasOutline = true,
     -- remove it below if you don't want to use the key system in your script.
     
@@ -85,7 +85,7 @@ Window:EditOpenButton({
 
 
 local Tabs = {
-    WindowTab = Window:Tab({ Title = "Window and File Configuration", Icon = "rbxassetid://102149302468274", Desc = "Manage window settings and file configurations." }),
+    WindowTab = Window:Tab({ Title = "Main", Icon = "rbxassetid://74033216886216", Desc = "Manage window settings and file configurations." }),
 }
 
 Window:SelectTab(1)
